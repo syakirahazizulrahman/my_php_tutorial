@@ -11,6 +11,11 @@
         .brand-text{
             color: #d75443 !important;
         }
+        form{
+            max-width: 460px;
+            margin: 20px auto;
+            padding: 20px;
+        }
     </style>
 </head>
 <body class="pink lighten-4">
