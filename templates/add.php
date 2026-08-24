@@ -1,15 +1,12 @@
-<?php 
+<?php
 
 $title = $email = $ingredients = '';
 $errors = array('email' => '', 'title' => '', 'ingredients' => '');
 
-if(isset($_POST['submit']))
-    // echo htmlspecialchars($_POST['email']);
-    // echo htmlspecialchars($_POST['title']);
-    // echo htmlspecialchars($_POST['ingredients']);
+if (isset($_POST['submit'])) {
 
     //check email
-    if(empty($_POST['email'])){
+    if (empty($_POST['email'])) {
         $errors['email'] = 'An email is required <br />';
     } else {
         $email = $_POST['email'];
@@ -17,31 +14,34 @@ if(isset($_POST['submit']))
             $errors['email'] = ' email must be a valid email address ';
         }
     }
+
     //check title
-    if(empty($_POST['title'])){
+    if (empty($_POST['title'])) {
         $errors['title'] = 'A title is required <br />';
     } else {
         $title = $_POST['title'];
-        if(preg_match('/^[a-zA-Z\s]+$/', $title)){
+        if (!preg_match('/^[a-zA-Z\s]+$/', $title)) {
             $errors['title'] = ' Title must be letters and spaces only ';
         }
     }
-    //checking
-    if(empty($_POST['ingredients'])){
+
+    //check ingredients
+    if (empty($_POST['ingredients'])) {
         $errors['ingredients'] = 'An ingredient is required <br />';
     } else {
         $ingredients = $_POST['ingredients'];
-         if(preg_match('/^([a-zA-Z\s]+)(,\s*[a-zA-Z\s]*)*$/',$ingredients)){
+        if (!preg_match('/^([a-zA-Z\s]+)(,\s*[a-zA-Z\s]*)*$/', $ingredients)) {
             $errors['ingredients'] = ' Ingredients must be a comma separated list ';
-        } 
-    
-        if(array_filter($errors)){
-            //echo ' errors in the form';
-        } else {
-            //echo 'form is valid';
-            header('location: index.php');
         }
-    
+    }
+
+    if (array_filter($errors)) {
+        //echo ' errors in the form';
+    } else {
+        //echo 'form is valid';
+        header('location: index.php');
+    }
+
 }//end
 
 ?>
@@ -49,15 +49,15 @@ if(isset($_POST['submit']))
 <!DOCTYPE html>
 <html>
 
-<?php include("templates/header.php"); ?>
+<?php include('header.php'); ?>
 
 <section class="container red-text">
     <h4 class="center">Add a Pizza</h4>
 
-    <form class="white" action="add.php" methods="POST">
+    <form class="white" action="add.php" method="POST">
 
         <label>Your Email :</label>
-        <input type="text" name="email" value="<?php echo htmlspecialchars($email) ?>" >
+        <input type="text" name="email" value="<?php echo htmlspecialchars($email) ?>">
         <div class="red-text"><?php echo $errors['email']; ?></div>
 
         <label>Pizza Title :</label>
@@ -76,6 +76,6 @@ if(isset($_POST['submit']))
 
 </section>
 
-<?php include('templates/folder.php'); ?>
+<?php include('footer.php'); ?>
 
 </html>
